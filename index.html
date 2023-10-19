@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-image: url("https://img.imageboss.me/revista-cdn/cdn/41709/0cdd311840287f97bd5af917bf74542d48713298.jpg?1663939658");
+        }
+        #blocoPrinc{
+            background-color: rgb(209, 193, 141);    /* rgb(255, 231, 152); */
+            margin-left: 6%;
+            margin-right: 6%;
+            margin-bottom: 0px;
+            padding: 3%;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1{
+            font-family:'Times New Roman', Times, serif;
+            text-align: left;
+            font-size: 40px;
+            color: white;
+        }
+        #pergunta{
+            font-size: 25px;
+            text-align: justify;
+        }
+        #conceito{
+            font-size: 25px;
+            text-align: left;
+            font-weight: bold;
+        }
+        input{
+            font-size: 50px;
+        }
+        #topo{
+            background-color: black;
+            margin-bottom: 0px;
+            margin-top: 6%;
+            margin-left: 6%;
+            margin-right: 6%;
+            padding: 3%;
+            margin-bottom: 0px;
+        }
+        #btnProximo{
+            display: inline-block;
+            font-size: 20px;
+            color: white;
+            background-color:rgb(57, 117, 33); ;
+        }
+        #msgAcerto{
+            display: inline-block;
+            color: rgb(57, 117, 33);
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #msgErro{
+            color: rgb(117, 33, 33);
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+        <div id="topo">
+            <h1>QUIZ DO DIREITO</h1>
+        </div>
+        <div id="blocoPrinc">
+        <p id="conceito">Conceito:<p>
+        <p id="pergunta"></p>
+        <form onsubmit="verificarResposta(event)">
+            <input id="alt1" type="submit" value="1">
+            <input id="alt2" type="submit" value="2">
+            <input id="alt3" type="submit" value="3">
+            <input id="alt4" type="submit" value="4">
+        </form>
+        <div id ="divErro">
+            <p id="msgErro">X - Você errou, tente novamente.</p>
+        </div>
+        <form id ="formProximo" onsubmit="adeus()">
+            <p id="msgAcerto">√ - Parabéns, você acertou!</p>
+            <input id="btnProximo" type="submit" value="Próxima">
+        </form>
+    </div>
+</body>
+<script type="text/javascript">
+    let questoes = ["A lei penal começa a vigorar na data expressa em seu bojo. Em caso de omissão, ela começa a vigorar quarenta e cinco dias após sua publicação, no País, e em três meses no exterior (Vacância da Lei). A revogação da Lei Penal se opera com a edição de nova lei, e sua revogação pode se efetivar total (ab-rogação) ou parcialmente (derrogação). A lei penal pode ser temporária (com prazo fixado de vigência), ou excepcional (criada para ser aplicada em evento emergencial ou furtivo).", 
+    "Segundo a Teoria da Atividade, o crime sempre é cometido no momento da ação ou omissão, com a respectiva aplicação da lei vigente. A lei penal brasileira utiliza dessa teoria, em conjunto com a teoria do resultado (segundo a qual o crime é considerado cometido quando da produção do resultado) e com a teoria da ubiqüidade (segundo a qual considera-se o crime cometido, tanto no momento da ação ou omissão, quanto na produção do resultado).",
+    "São mantidos todos os direitos do preso não atingidos pela perda da liberdade, dentre os quais podemos citar: direito à vida, à manutenção da integridade física e moral, ao trabalho remunerado, direito de petição aos órgãos públicos, direito à propriedade, à intimidade, à vida privada, a assistência jurídica, médica e odontológica, a educação e cultura, direito de receber visitas, e outros previstos no art. 3º da Lei de Execuções Penais.", 
+    "O trabalho do preso será sempre remunerado, com as garantias pertinentes à Previdência Social.",
+    "Proibição do exercício de cargo, função ou atividade pública, bem como do exercício de mandato eletivo, além da possibilidade da suspensão da autorização para dirigir e da proibição de freqüência a determinados lugares. ",
+    " Obrigação de permanecer, aos sábados e domingos, por cinco horas diárias em casa de albergado ou outro estabelecimento adequado, onde poderão ser oferecidos ao condenado cursos, palestras ou atividades educativas.",
+    "No sistema brasileiro, o juiz deve adotar as circunstâncias judiciais – as agravantes e as atenuantes -, bem como as causas de aumento e diminuição da pena. Além disso, a pena deve zelar pela reprovação e prevenção do crime. Na fixação da multa, deve ser respeitada a situação econômica do réu.",
+    "Sempre agravam a pena: a reincidência, o motivo fútil ou torpe e a ocultação; a impunidade ou vantagem de outro crime; a traição, a emboscada e a simulação; o emprego de veneno, fogo, explosivo, ou tortura; os crimes praticados contra ascendente, descendente, irmão ou cônjuge; o abuso de poder; e o crime praticado contra: criança, maior de 60 anos, enfermo ou mulher grávida.",
+    "A prescrição depois de transitar em julgado a sentença condenatória regula-se pela pena aplicada e verifica-se nos prazos fixados no artigo anterior, os quais se aumentam de um terço, se o condenado é reincidente. ",
+    "A prescrição, antes de transitar em julgado a sentença final, começa a correr:  I - do dia em que o crime se consumou; (Redação dada pela Lei nº 7.209, de 11.7.1984) II - no caso de tentativa, do dia em que cessou a atividade criminosa;  (Redação dada pela Lei nº 7.209, de 11.7.1984) III - nos crimes permanentes, do dia em que cessou a permanência;  (Redação dada pela Lei nº 7.209, de 11.7.1984) IV - nos de bigamia e nos de falsificação ou alteração de assentamento do registro civil, da data em que o fato se tornou conhecido",
+    "após a sentença condenatória irrecorrível, a prescrição começa a correr:  I - do dia em que transita em julgado a sentença condenatória, para a acusação, ou a que revoga a suspensão condicional da pena ou o livramento condicional;  (Redação dada pela Lei nº 7.209, de 11.7.1984) II - do dia em que se interrompe a execução, salvo quando o tempo da interrupção deva computar-se na pena",
+    " No caso de evadir-se o condenado ou de revogar-se o livramento condicional, a prescrição é regulada pelo tempo que resta da pena.",
+    " A prescrição da pena de multa ocorrerá: (Redação dada pela Lei nº 9.268, de 1º.4.1996): I - em 2 (dois) anos, quando a multa for a única cominada ou aplicada; (Incluído pela Lei nº 9.268, de 1º.4.1996); II - no mesmo prazo estabelecido para prescrição da pena privativa de liberdade, quando a multa for alternativa ou cumulativamente cominada ou cumulativamente aplicada",
+    "São reduzidos de metade os prazos de prescrição quando o criminoso era, ao tempo do crime, menor de 21 (vinte e um) anos, ou, na data da sentença, maior de 70 (setenta) anos.",
+    "Antes de passar em julgado a sentença final, a prescrição não corre:  I - enquanto não resolvida, em outro processo, questão de que dependa o reconhecimento da existência do crime; (Redação dada pela Lei nº 7.209, de 11.7.1984), II - enquanto o agente cumpre pena no exterior, III - na pendência de embargos de declaração ou de recursos aos Tribunais Superiores, quando inadmissíveis; e IV - enquanto não cumprido ou não rescindido o acordo de não persecução penal. Parágrafo único - Depois de passada em julgado a sentença condenatória, a prescrição não corre durante o tempo em que o condenado está preso por outro motivo",
+    "O curso da prescrição interrompe-se: I - pelo recebimento da denúncia ou da queixa; (Redação dada pela Lei nº 7.209, de 11.7.1984), II - pela pronúncia; III - pela decisão confirmatória da pronúncia; IV - pela publicação da sentença ou acórdão condenatórios recorríveis; V - pelo início ou continuação do cumprimento da pena; VI - pela reincidência",
+    "As penas mais leves prescrevem com as mais graves. ",
+    "No caso de concurso de crimes, a extinção da punibilidade incidirá sobre a pena de cada um, isoladamente.",
+    " A sentença que conceder perdão judicial não será considerada para efeitos de reincidência.",
+    "Matar alguem:",
+    "Induzir ou instigar alguém a suicidar-se ou a praticar automutilação ou prestar-lhe auxílio material para que o faça",
+    "Matar, sob a influência do estado puerperal, o próprio filho, durante o parto",
+    "Provocar aborto em si mesma ou consentir que outrem lho provoque",
+    "Provocar aborto, sem o consentimento da gestante",
+    "Provocar aborto com o consentimento da gestante",
+    "As penas cominadas nos dois artigos anteriores são aumentadas de um terço, se, em conseqüência do aborto ou dos meios empregados para provocá-lo, a gestante sofre lesão corporal de natureza grave; e são duplicadas, se, por qualquer dessas      causas, lhe sobrevém a morte.",
+    "Não se pune o aborto praticado por médico: I - se não há outro meio de salvar a vida da gestante; II - se a gravidez resulta de estupro e o aborto é precedido de consentimento da gestante ou, quando incapaz, de seu representante legal.",
+    " Ofender a integridade corporal ou a saúde de outrem",
+    "Expor alguém, por meio de relações sexuais ou qualquer ato libidinoso, a contágio de moléstia venérea, de que sabe ou deve saber que está contaminado",
+
+]
+    var div = document.getElementById("formProximo")
+    var divErro = document.getElementById("divErro")
+    var msgAcerto1 = document.getElementById("msgAcerto")
+    var msgErro = document.getElementById("msgErro")
+    var btnAcerto = document.getElementById("btnProximo")
+    msgErro.remove()
+    msgAcerto.remove()
+    btnAcerto.remove()
+
+
+    let respostas = ["2", "6", "38", "39", "47", "48", "59", "61","110","111", "112", "113", "114", "115", "116", "117", "118", "119", "120","121", "122", "123", "124", "125", "126", "127", "128", "129", "130"]
+    var escolherQuestao
+    function criarQuestao(){
+        escolherQuestao =  parseInt(Math.random() * 4)
+        let questao = parseInt(Math.random() * questoes.length)
+        let aleatorio;
+        document.getElementById("pergunta").innerHTML = questoes[questao]
+        for(var i = 0; i < 4; i++){
+            if(escolherQuestao == i){
+                var num = i+1
+                var pegarId = "alt"+num
+                document.getElementById(pegarId).value = "Artigo "+ respostas[questao]+"°"
+            }else{
+                aleatorio = parseInt(Math.random() * questoes.length)
+                while(aleatorio == questao){
+                    aleatorio = parseInt(Math.random() * questoes.length)
+                }
+                var num = i+1
+                var pegarId = "alt"+num
+                document.getElementById(pegarId).value = "Artigo "+ respostas[aleatorio]+"°"
+            }
+        }
+    }
+    /* function verificarResposta(event){
+        event.preventDefault()
+        window.onclick = e => {
+        alert(e.target.id)
+        var num = escolherQuestao + 1
+        var questaoCerta = "alt"+num
+        if(questaoCerta = e.target.id){
+            alert(Parabéns, você acertou!)
+            criarQuestao()
+        }else{
+            alert(Artigo errado, tente novamente.)
+        }
+
+    } 
+    }
+    */ 
+    
+     function verificarResposta(){
+        event.preventDefault()
+        window.onclick = e => {
+        var objclicked = e.target.id
+        var num = escolherQuestao + 1
+        var questaoCerta = "alt"+num
+        if(questaoCerta == objclicked){
+            msgErro.remove()
+            div.append(msgAcerto1)
+            div.append(btnAcerto)
+            var gabarito = document.getElementById(objclicked)
+            gabarito.style.backgroundColor = 'rgb(57, 117, 33)'
+            gabarito.style.color = 'white'
+        }else if(objclicked == "alt1" || objclicked == "alt2" || objclicked == "alt3" || objclicked == "alt4"){
+            divErro.append(msgErro)
+            paper.project.activeLayer.addChild("msgErro");
+        }
+
+    } 
+    }
+    function adeus(){
+        criarQuestao()
+    }
+        criarQuestao()
+
+</script>
+</html>
