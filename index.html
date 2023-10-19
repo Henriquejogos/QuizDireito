@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-image: url("https://img.imageboss.me/revista-cdn/cdn/41709/0cdd311840287f97bd5af917bf74542d48713298.jpg?1663939658");
+        }
+        #blocoPrinc{
+            background-color: rgb(255, 231, 152);
+            margin: 6%;
+            padding: 3%;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1{
+            font-family:'Times New Roman', Times, serif;
+        }
+        #pergunta{
+            font-size: 20px;
+        }
+        input{
+            font-size: 50px;;
+        }
+    </style>
+</head>
+<body>
+    <div id="blocoPrinc">
+        <h1>QUIZ DO DIREITO</h1>
+        <p id="pergunta">dada</p>
+        <form onsubmit="verificarResposta(event)">
+            <input id="alt1" type="submit" value="1">
+            <input id="alt2" type="submit" value="2">
+            <input id="alt3" type="submit" value="3">
+            <input id="alt4" type="submit" value="4">
+        </form>
+    </div>
+</body>
+<script type="text/javascript">
+    let questoes = ["A lei penal começa a vigorar na data expressa em seu bojo. Em caso de omissão, ela começa a vigorar quarenta e cinco dias após sua publicação, no País, e em três meses no exterior (Vacância da Lei). A revogação da Lei Penal se opera com a edição de nova lei, e sua revogação pode se efetivar total (ab-rogação) ou parcialmente (derrogação). A lei penal pode ser temporária (com prazo fixado de vigência), ou excepcional (criada para ser aplicada em evento emergencial ou furtivo).", 
+    "Segundo a Teoria da Atividade, o crime sempre é cometido no momento da ação ou omissão, com a respectiva aplicação da lei vigente. A lei penal brasileira utiliza dessa teoria, em conjunto com a teoria do resultado (segundo a qual o crime é considerado cometido quando da produção do resultado) e com a teoria da ubiqüidade (segundo a qual considera-se o crime cometido, tanto no momento da ação ou omissão, quanto na produção do resultado).",
+    "São mantidos todos os direitos do preso não atingidos pela perda da liberdade, dentre os quais podemos citar: direito à vida, à manutenção da integridade física e moral, ao trabalho remunerado, direito de petição aos órgãos públicos, direito à propriedade, à intimidade, à vida privada, a assistência jurídica, médica e odontológica, a educação e cultura, direito de receber visitas, e outros previstos no art. 3º da Lei de Execuções Penais.", 
+    "O trabalho do preso será sempre remunerado, com as garantias pertinentes à Previdência Social.",
+    "Proibição do exercício de cargo, função ou atividade pública, bem como do exercício de mandato eletivo, além da possibilidade da suspensão da autorização para dirigir e da proibição de freqüência a determinados lugares. ",
+    " Obrigação de permanecer, aos sábados e domingos, por cinco horas diárias em casa de albergado ou outro estabelecimento adequado, onde poderão ser oferecidos ao condenado cursos, palestras ou atividades educativas.",
+    "No sistema brasileiro, o juiz deve adotar as circunstâncias judiciais – as agravantes e as atenuantes -, bem como as causas de aumento e diminuição da pena. Além disso, a pena deve zelar pela reprovação e prevenção do crime. Na fixação da multa, deve ser respeitada a situação econômica do réu.",
+    "Sempre agravam a pena: a reincidência, o motivo fútil ou torpe e a ocultação; a impunidade ou vantagem de outro crime; a traição, a emboscada e a simulação; o emprego de veneno, fogo, explosivo, ou tortura; os crimes praticados contra ascendente, descendente, irmão ou cônjuge; o abuso de poder; e o crime praticado contra: criança, maior de 60 anos, enfermo ou mulher grávida."
+]
+    let respostas = ["2", "6", "38", "39", "47", "48", "59", "61"]
+    var escolherQuestao
+    function criarQuestao(){
+        escolherQuestao =  parseInt(Math.random() * 4)
+        let questao = parseInt(Math.random() * questoes.length)
+        let aleatorio;
+        document.getElementById("pergunta").innerHTML = questoes[questao]
+        for(var i = 0; i < 4; i++){
+            if(escolherQuestao == i){
+                var num = i+1
+                var pegarId = "alt"+num
+                document.getElementById(pegarId).value = "Artigo "+ respostas[questao]+"°"
+            }else{
+                aleatorio = parseInt(Math.random() * questoes.length)
+                while(aleatorio == questao){
+                    aleatorio = parseInt(Math.random() * questoes.length)
+                }
+                var num = i+1
+                var pegarId = "alt"+num
+                document.getElementById(pegarId).value = "Artigo "+ respostas[aleatorio]+"°"
+            }
+        }
+    }
+    /* function verificarResposta(event){
+        event.preventDefault()
+        window.onclick = e => {
+        alert(e.target.id)
+        var num = escolherQuestao + 1
+        var questaoCerta = "alt"+num
+        if(questaoCerta = e.target.id){
+            alert(Parabéns, você acertou!)
+            criarQuestao()
+        }else{
+            alert(Artigo errado, tente novamente.)
+        }
+
+    } 
+    }
+    */ 
+    
+     function verificarResposta(event){
+        event.preventDefault()
+        window.onclick = e => {
+        var objclicked = e.target.id
+        alert(objclicked)
+        var num = escolherQuestao + 1
+        var questaoCerta = "alt"+num
+        if(questaoCerta == objclicked){
+            alert("Parabéns, você acertou!")
+            criarQuestao()
+        }else{
+            alert("Artigo errado, tente novamente.")
+        }
+
+    } 
+    }
+
+        criarQuestao()
+
+</script>
+</html>
